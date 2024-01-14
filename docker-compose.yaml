@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  tileserver-gl:
+    image: maptiler/tileserver-gl
+    ports:
+      - "8080:8080" # HOST:CONTAINER, edit only HOST part
+    volumes:
+      - ./:/data
+      # - ./config.json:/config.json
+      # - ./data:/data
+      # - ./styles:/styles
+      # - ./fonts:/font-glyphs
+    command:
+      tileserver-gl -c config.json
+    restart: unless-stopped

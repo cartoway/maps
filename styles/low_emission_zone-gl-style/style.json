@@ -1,0 +1,24 @@
+{
+  "version": 8,
+  "name": "Low Emission Zone",
+  "center": [2.3247, 48.8381],
+  "zoom": 10,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "low_emission_zone": {
+      "type": "vector",
+      "url": "http://localhost:8080/data/low_emission_zone.json"
+    }
+  },
+  "layers": [
+    {
+      "id": "low_emission_zone",
+      "type": "fill",
+      "source": "low_emission_zone",
+      "source-layer": "low_emission_zone",
+      "paint": {"fill-color": "rgba(167, 159, 124, 1)", "fill-opacity": 0.3}
+    }
+  ],
+  "id": "low_emission_zone"
+}

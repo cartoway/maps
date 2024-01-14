@@ -1,0 +1,20 @@
+{
+    "options": {
+        "paths": {
+            "fonts": "font-glyphs/glyphs",
+            "styles": "styles",
+            "mbtiles": "data"
+        }
+    },
+    "styles": {
+        "low_emission_zone": {
+            "style": "low_emission_zone-gl-style/style.json",
+            "serve_rendered": false
+        }
+    },
+    "data": {
+        "low_emission_zone": {
+            "mbtiles": "low_emission_zone.mbtiles"
+        }
+    }
+}
