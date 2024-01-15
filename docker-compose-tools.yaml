@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  tools:
+    build:
+      context: data
+    volumes:
+      - ./:/data
+    restart: unless-stopped
