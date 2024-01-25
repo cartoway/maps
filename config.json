@@ -8,8 +8,7 @@
     },
     "styles": {
         "low_emission_zone": {
-            "style": "low_emission_zone-gl-style/style.json",
-            "serve_rendered": false
+            "style": "low_emission_zone-gl-style/style.json"
         }
     },
     "data": {
