@@ -4,16 +4,23 @@
             "fonts": "font-glyphs/glyphs",
             "styles": "styles",
             "mbtiles": "data"
-        }
+        },
+        "tileMargin": 10
     },
     "styles": {
         "low_emission_zone": {
             "style": "low_emission_zone-gl-style/style.json"
+        },
+        "charching_station": {
+            "style": "charching_station-gl-style/style.json"
         }
     },
     "data": {
         "low_emission_zone": {
             "mbtiles": "low_emission_zone.mbtiles"
+        },
+        "charching_station": {
+            "mbtiles": "charching_station.mbtiles"
         }
     }
 }

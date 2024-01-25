@@ -9,7 +9,7 @@
   "sources": {
     "low_emission_zone": {
       "type": "vector",
-      "url": "https://maps.cartoway.com/data/low_emission_zone.json"
+      "url": "mbtiles://{low_emission_zone}"
     }
   },
   "layers": [
