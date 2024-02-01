@@ -18,14 +18,78 @@
       "type": "fill",
       "source": "low_emission_zone",
       "source-layer": "low_emission_zone",
-      "paint": {"fill-color": "rgba(124, 133, 167, 1)", "fill-opacity": 0.3}
+      "paint": {
+        "fill-color": [
+          "match",
+          ["get", "access:note"],
+          "crit'air 0",
+          "#4db27a",
+          "crit'air 1",
+          "#ad70b5",
+          "crit'air 2",
+          "#ffe44b",
+          "crit'air 3",
+          "#f6b364",
+          "crit'air 4",
+          "#7c323f",
+          "#fff"
+        ],
+        "fill-opacity": 0.3
+      }
     },
     {
       "id": "low_emission_zone-border",
       "type": "line",
       "source": "low_emission_zone",
       "source-layer": "low_emission_zone",
-      "paint": {"line-color": "rgba(124, 133, 167, 1)", "line-opacity": 0.8}
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "access:note"],
+          "crit'air 0",
+          "#4db27a",
+          "crit'air 1",
+          "#ad70b5",
+          "crit'air 2",
+          "#ffe44b",
+          "crit'air 3",
+          "#f6b364",
+          "crit'air 4",
+          "#7c323f",
+          "#fff"
+        ],
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "low_emission_zone-label",
+      "type": "symbol",
+      "source": "low_emission_zone",
+      "source-layer": "low_emission_zone",
+      "layout": {
+        "text-field": ["get", "access:note"],
+        "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          ["get", "access:note"],
+          "crit'air 0",
+          "#4db27a",
+          "crit'air 1",
+          "#ad70b5",
+          "crit'air 2",
+          "#ffe44b",
+          "crit'air 3",
+          "#f6b364",
+          "crit'air 4",
+          "#7c323f",
+          "#fff"
+        ],
+        "text-halo-color": "rgba(255, 255, 255, 1)",
+        "text-halo-blur": 2,
+        "text-halo-width": 3
+      }
     }
   ],
   "id": "low_emission_zone"
