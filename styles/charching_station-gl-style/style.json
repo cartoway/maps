@@ -57,7 +57,17 @@
       "minzoom": 10,
       "filter": ["all", ["==", "clustered", true]],
       "layout": {
-        "text-field": ["coalesce", ["get", "network"], ["get", "operator"]],
+        "text-field": [
+          "concat",
+          ["coalesce", ["get", "network"], ["get", "operator"]],
+          ["case", ["get", "fee"], " (€)", ["get", "fee"], " (0€)", ""],
+          [
+            "case",
+            ["!=", ["get", "type"], ""],
+            ["concat", "\n(type: ", ["get", "type"], ")"],
+            ""
+          ]
+        ],
         "icon-size": 1,
         "text-size": 12,
         "text-allow-overlap": false,
@@ -99,7 +109,17 @@
       "minzoom": 10,
       "filter": ["all", ["!=", "clustered", true]],
       "layout": {
-        "text-field": ["coalesce", ["get", "network"], ["get", "operator"]],
+        "text-field": [
+          "concat",
+          ["coalesce", ["get", "network"], ["get", "operator"]],
+          ["case", ["get", "fee"], " (€)", ["get", "fee"], " (0€)", ""],
+          [
+            "case",
+            ["!=", ["get", "type"], ""],
+            ["concat", "\n(type: ", ["get", "type"], ")"],
+            ""
+          ]
+        ],
         "icon-size": 1,
         "text-size": 12,
         "text-allow-overlap": false,
