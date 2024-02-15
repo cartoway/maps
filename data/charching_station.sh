@@ -6,7 +6,7 @@ cat Stations\ de\ recharge\ pour\ véhicules\ électriques-Analyser_Merge_Chargi
     ruby -e "require 'csv'; require 'json'; CSV.parse(STDIN, headers: true).each{ |r| puts r.to_h.compact.to_json }" | \
     jq -c '
         . |
-        select(.motorcar == "yes") |
+        select(.motorcar != "no") |
         {type: "Feature", geometry: {type: "Point", coordinates: [(.lon | tonumber), .lat | tonumber]}, properties: {
             ref: ."ref:EU:EVSE",
             operator: .operator,
