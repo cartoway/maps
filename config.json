@@ -13,6 +13,9 @@
         },
         "charching_station": {
             "style": "charching_station-gl-style/style.json"
+        },
+        "jo-2024-08-10": {
+            "style": "jo-2024-08-10-gl-style/style.json"
         }
     },
     "data": {
@@ -21,6 +24,9 @@
         },
         "charching_station": {
             "mbtiles": "charching_station.mbtiles"
+        },
+        "jo-2024": {
+            "mbtiles": "jo-2024.mbtiles"
         }
     }
 }

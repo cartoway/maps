@@ -1,0 +1,80 @@
+{
+  "version": 8,
+  "name": "JO 2024",
+  "sources": {
+    "jo-2024": {
+      "type": "vector",
+      "url": "mbtiles://{jo-2024}"
+    }
+  },
+  "glyphs": "{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "perimetre-red-text",
+      "type": "symbol",
+      "source": "jo-2024",
+      "source-layer": "jo2024",
+      "minzoom": 12,
+      "filter": [
+        "all",
+        ["==", "TYPE_PERI", "Rouge"],
+        [">=", "DATE_DEBUT", "2024/08/10"],
+        ["<", "DATE_FIN", "2024/08/11"]
+      ],
+      "layout": {
+        "text-field": "{DATE_DEBUT} {DATE_FIN}",
+        "text-font": ["Open Sans Regular"],
+        "text-size": {"stops": [[12, 6], [14, 12]]},
+        "text-max-width": 15
+      },
+      "paint": {"text-color": "rgba(255, 0, 0, 1)"}
+    },
+    {
+      "id": "perimetre-red",
+      "type": "fill",
+      "source": "jo-2024",
+      "source-layer": "jo2024",
+      "filter": [
+        "all",
+        ["==", "TYPE_PERI", "Rouge"],
+        [">=", "DATE_DEBUT", "2024/08/10"],
+        ["<", "DATE_FIN", "2024/08/11"]
+      ],
+      "paint": {"fill-color": "rgba(255, 0, 0, 1)", "fill-opacity": 0.3}
+    },
+    {
+      "id": "perimetre-blue-text",
+      "type": "symbol",
+      "source": "jo-2024",
+      "source-layer": "jo2024",
+      "minzoom": 12,
+      "filter": [
+        "all",
+        ["==", "TYPE_PERI", "Bleu"],
+        [">=", "DATE_DEBUT", "2024/08/10"],
+        ["<", "DATE_FIN", "2024/08/11"]
+      ],
+      "layout": {
+        "text-field": "{DATE_DEBUT} {DATE_FIN}",
+        "text-font": ["Open Sans Regular"],
+        "text-size": {"stops": [[12, 6], [14, 12]]},
+        "text-max-width": 15
+      },
+      "paint": {"text-color": "rgba(0, 32, 255, 1)"}
+    },
+    {
+      "id": "perimetre-blue",
+      "type": "fill",
+      "source": "jo-2024",
+      "source-layer": "jo2024",
+      "filter": [
+        "all",
+        ["==", "TYPE_PERI", "Bleu"],
+        [">=", "DATE_DEBUT", "2024/08/10"],
+        ["<", "DATE_FIN", "2024/08/11"]
+      ],
+      "paint": {"fill-color": "rgba(0, 32, 255, 1)", "fill-opacity": 0.3}
+    }
+  ],
+  "id": "jo-2024"
+}
