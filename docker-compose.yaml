@@ -1,6 +1,15 @@
 version: '3.7'
 
 services:
+  tools:
+    profiles:
+      - tools
+    build:
+      context: data
+    volumes:
+      - ./:/data
+    restart: unless-stopped
+
   tileserver-gl:
     image: maptiler/tileserver-gl
     ports:
