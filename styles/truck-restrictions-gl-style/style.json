@@ -1,0 +1,208 @@
+{
+  "version": 8,
+  "name": "Truck Restrictions",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "sources": {
+    "truck-restrictions": {
+      "type": "vector",
+      "url": "mbtiles://{truck-restrictions}"
+    },
+    "osm-carto-raster": {
+      "type": "raster",
+      "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 19
+    }
+  },
+  "sprite": "",
+  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "osm",
+      "type": "raster",
+      "source": "osm-carto-raster"
+    },
+    {
+      "id": "highway",
+      "type": "line",
+      "source": "truck-restrictions",
+      "source-layer": "highway",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {"line-color": "rgba(255, 0, 95, 1)", "line-width": 3}
+    },
+    {
+      "id": "highway-labels",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "highway",
+      "layout": {
+        "text-font": ["Open Sans Bold"],
+        "text-field": [
+          "concat",
+          ["case", ["has", "goods"], "oo", ""],
+          ["case", ["has", "hgv"], "oo", ""],
+          [
+            "case",
+            ["has", "maxlength"],
+            ["concat", " <->", ["get", "maxlength"]],
+            ""
+          ],
+          [
+            "case",
+            ["has", "maxheight"],
+            ["concat", " v", ["get", "maxheight"], "^"],
+            ""
+          ],
+          [
+            "case",
+            ["has", "maxwidth"],
+            ["concat", " >", ["get", "maxwidth"], "<"],
+            ""
+          ],
+          [
+            "case",
+            ["has", "maxweight"],
+            ["concat", " ", ["get", "maxweight"], "t"],
+            ""
+          ]
+        ],
+        "symbol-placement": "line-center",
+        "symbol-spacing": 100
+      },
+      "paint": {
+        "text-halo-color": [
+          "case",
+          [
+            "any",
+            ["!=", "no", ["get", "goods"]],
+            ["!=", "no", ["get", "hgv"]],
+            ["has", "maxweight:conditional"],
+            ["has", "maxlength:conditional"],
+            ["has", "maxheight:conditional"],
+            ["has", "maxwidth:conditional"]
+          ],
+          "rgba(192, 192, 192, 1)",
+          "rgba(255, 255, 255, 1)"
+        ],
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "circle-withe-large",
+      "type": "circle",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all"],
+      "paint": {"circle-radius": 22, "circle-color": "rgba(255, 255, 255, 1)"}
+    },
+    {
+      "id": "circle-red",
+      "type": "circle",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all"],
+      "paint": {"circle-radius": 20, "circle-color": "rgba(255, 0, 0, 1)"}
+    },
+    {
+      "id": "circle-gray",
+      "type": "circle",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": [
+        "any",
+        ["all", ["has", "goods"], ["!=", ["get", "goods"], "no"]],
+        ["has", "goods:conditional"],
+        ["all", ["has", "hgv"], ["!=", ["get", "hgv"], "no"]],
+        ["has", "hgv:conditional"],
+        ["has", "maxweight:conditional"],
+        ["has", "maxlength:conditional"],
+        ["has", "maxheight:conditional"],
+        ["has", "maxwidth:conditional"]
+      ],
+      "paint": {"circle-radius": 16, "circle-color": "rgba(192, 192, 192, 1)"}
+    },
+    {
+      "id": "circle-withe",
+      "type": "circle",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": [
+        "!",
+        [
+          "any",
+          ["all", ["has", "goods"], ["!=", ["get", "goods"], "no"]],
+          ["has", "goods:conditional"],
+          ["all", ["has", "hgv"], ["!=", ["get", "hgv"], "no"]],
+          ["has", "hgv:conditional"],
+          ["has", "maxweight:conditional"],
+          ["has", "maxlength:conditional"],
+          ["has", "maxheight:conditional"],
+          ["has", "maxwidth:conditional"]
+        ]
+      ],
+      "paint": {"circle-radius": 16, "circle-color": "rgba(255, 255, 255, 1)"}
+    },
+    {
+      "id": "unit-length",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all", ["has", "maxlength"]],
+      "layout": {
+        "text-field": "<->{maxlength}",
+        "text-font": ["Open Sans Bold"],
+        "text-size": 14
+      }
+    },
+    {
+      "id": "unit-height",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all", ["has", "maxheight"]],
+      "layout": {
+        "text-field": "v\n{maxheight}\n^",
+        "text-font": ["Open Sans Bold"],
+        "text-size": 14,
+        "text-line-height": 0.85
+      }
+    },
+    {
+      "id": "unit-width",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all", ["has", "maxwidth"]],
+      "layout": {
+        "text-field": ">{maxwidth}<",
+        "text-font": ["Open Sans Bold"],
+        "text-size": 14
+      }
+    },
+    {
+      "id": "unit-weigth",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["all", ["has", "maxweight"]],
+      "layout": {
+        "text-field": "{maxweight}t",
+        "text-font": ["Open Sans Bold"],
+        "text-size": 14
+      }
+    },
+    {
+      "id": "unit-goods-hgv",
+      "type": "symbol",
+      "source": "truck-restrictions",
+      "source-layer": "restrictions",
+      "filter": ["any", ["has", "goods"], ["has", "hgv"]],
+      "layout": {
+        "text-field": "oo",
+        "text-font": ["Open Sans Bold"],
+        "text-size": 14
+      }
+    }
+  ],
+  "id": "dms7yyk"
+}

@@ -1,0 +1,95 @@
+schema_name: Truck restrictions
+schema_description: Truck road restriction from OpenStreetMap
+attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+sources:
+  osm:
+    type: osm
+    url: geofabrik:france
+tag_mappings:
+    maxweight: float
+    maxlength: float
+    maxheight: float
+    maxwidth: float
+layers:
+  - id: restrictions
+    features:
+      - source: osm
+        geometry: point_on_line
+        min_zoom:
+          default_value: 13
+          overrides:
+            - value: 7
+              if:
+                highway: [motorway, motorway_link, trunk, trunk_link, primary, primary_link]
+            - value: 9
+              if:
+                highway: [secondary, secondary_link]
+            - value: 11
+              if:
+                highway: [tertiary, tertiary_link]
+            - value: 12
+              if:
+                highway: [residential, unclassified]
+        include_when: &include_when
+          __all__:
+            - highway: [motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, residential, unclassified]
+            - __any__:
+              goods:
+              "goods:conditional":
+              hgv:
+              "hgv:conditional":
+              maxweight:
+              "maxweight:conditional":
+              maxlength:
+              "maxlength:conditional":
+              maxheight:
+              "maxheight:conditional":
+              maxwidth:
+              "maxwidth:conditional":
+        exclude_when: &exclude_when
+          __all__:
+            - goods: [yes, ""]
+            - hgv: [yes, ""]
+            - maxweight: [default, ""]
+            - maxlength: [default, ""]
+            - maxheight: [default, ""]
+            - maxwidth: [default, ""]
+        attributes: &attributes
+          - key: highway
+          - key: goods
+            exclude_when:
+              goods: yes
+          - key: "goods:conditional"
+          - key: hgv
+            exclude_when:
+              hgv: yes
+          - key: "hgv:conditional"
+          - key: maxweight
+            exclude_when:
+              maxweight: [default, none]
+          - key: "maxweight:conditional"
+          - key: maxlength
+            exclude_when:
+              maxweight: [default, none]
+          - key: "maxlength:conditional"
+          - key: maxheight
+            exclude_when:
+              maxweight: [default, none]
+          - key: "maxheight:conditional"
+          - key: maxwidth
+            exclude_when:
+              maxweight: [default, none]
+          - key: "maxwidth:conditional"
+  - id: highway
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 4
+        include_when: *include_when
+        exclude_when: *exclude_when
+        attributes: *attributes
+    tile_post_process:
+      merge_line_strings:
+args:
+  minzoom: 4
+  maxzoom: 14

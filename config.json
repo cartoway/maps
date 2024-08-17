@@ -16,6 +16,9 @@
         },
         "jo-2024-08-10": {
             "style": "jo-2024-08-10-gl-style/style.json"
+        },
+        "truck-restrictions": {
+            "style": "truck-restrictions-gl-style/style.json"
         }
     },
     "data": {
@@ -27,6 +30,9 @@
         },
         "jo-2024": {
             "mbtiles": "jo-2024.mbtiles"
+        },
+        "truck-restrictions": {
+            "mbtiles": "truck-restrictions.mbtiles"
         }
     }
 }
