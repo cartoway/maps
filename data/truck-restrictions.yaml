@@ -50,7 +50,7 @@ layers:
           __all__:
             - goods: [yes, ""]
             - hgv: [yes, ""]
-            - maxweight: [default, ""]
+            - "${ feature.tags.maxweight == null || feature.tags.maxweight == 'default' || double(feature.tags.getOrDefault('maxweight', '99').replace('t', '').trim()) > 44.0 }"
             - maxlength: [default, ""]
             - maxheight: [default, ""]
             - maxwidth: [default, ""]

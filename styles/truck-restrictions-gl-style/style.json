@@ -149,9 +149,10 @@
       "source-layer": "restrictions",
       "filter": ["all", ["has", "maxlength"]],
       "layout": {
-        "text-field": "<->{maxlength}",
+        "text-field": "{maxlength}\n<-->",
         "text-font": ["Open Sans Bold"],
-        "text-size": 14
+        "text-size": 14,
+        "text-line-height": 0.75
       }
     },
     {
