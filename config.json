@@ -19,6 +19,9 @@
         },
         "truck-restrictions": {
             "style": "truck-restrictions-gl-style/style.json"
+        },
+        "limited_traffic_zone": {
+            "style": "limited_traffic_zone-gl-style/style.json"
         }
     },
     "data": {
@@ -33,6 +36,9 @@
         },
         "truck-restrictions": {
             "mbtiles": "truck-restrictions.mbtiles"
+        },
+        "limited_traffic_zone": {
+            "mbtiles": "limited_traffic_zone.mbtiles"
         }
     }
 }

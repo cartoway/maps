@@ -1,0 +1,47 @@
+{
+  "version": 8,
+  "name": "Limited Traffic Zone",
+  "metadata": {"maputnik:renderer": "mbgljs"},
+  "center": [2.3247, 48.8381],
+  "zoom": 10,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "limited_traffic_zone": {"type": "vector", "url": "mbtiles://{limited_traffic_zone}"}
+  },
+  "glyphs": "{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "limited_traffic_zone",
+      "type": "fill",
+      "source": "limited_traffic_zone",
+      "source-layer": "limited_traffic_zone",
+      "paint": {"fill-color": "#000000", "fill-opacity": 0.3}
+    },
+    {
+      "id": "limited_traffic_zone-border",
+      "type": "line",
+      "source": "limited_traffic_zone",
+      "source-layer": "limited_traffic_zone",
+      "paint": {"line-color": "#000000", "line-opacity": 0.8}
+    },
+    {
+      "id": "limited_traffic_zone-label",
+      "type": "symbol",
+      "source": "limited_traffic_zone",
+      "source-layer": "limited_traffic_zone",
+      "layout": {
+        "text-field": "ZTE",
+        "symbol-placement": "line",
+        "text-font": ["Open Sans Regular"]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "rgba(255, 255, 255, 1)",
+        "text-halo-blur": 2,
+        "text-halo-width": 3
+      }
+    }
+  ],
+  "id": "limited_traffic_zone"
+}
