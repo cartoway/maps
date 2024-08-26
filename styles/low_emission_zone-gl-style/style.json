@@ -12,6 +12,7 @@
       "url": "mbtiles://{low_emission_zone}"
     }
   },
+  "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "low_emission_zone",
