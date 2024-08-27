@@ -1,0 +1,6 @@
+*.mbtiles
+data/*.json
+data/*.geojson
+data/*.csv
+data/*.xml
+data/sources
