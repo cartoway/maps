@@ -4,7 +4,7 @@ attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">
 sources:
   osm:
     type: osm
-    url: geofabrik:france
+    local_path: /data/truck-restrictions-pbf/merge.osm.pbf
 tag_mappings:
     maxweight: float
     maxlength: float
