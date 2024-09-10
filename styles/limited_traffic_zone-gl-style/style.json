@@ -31,7 +31,7 @@
       "source": "limited_traffic_zone",
       "source-layer": "limited_traffic_zone",
       "layout": {
-        "text-field": "ZTE",
+        "text-field": "ZTL",
         "symbol-placement": "line",
         "text-font": ["Open Sans Regular"]
       },
