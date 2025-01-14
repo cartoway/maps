@@ -22,6 +22,9 @@
         },
         "limited_traffic_zone": {
             "style": "limited_traffic_zone-gl-style/style.json"
+        },
+        "restaurants": {
+            "style": "restaurants-gl-style/style.json"
         }
     },
     "data": {
@@ -39,6 +42,9 @@
         },
         "limited_traffic_zone": {
             "mbtiles": "limited_traffic_zone.mbtiles"
+        },
+        "restaurants": {
+            "mbtiles": "restaurants.mbtiles"
         }
     }
 }

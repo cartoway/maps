@@ -1,0 +1,59 @@
+{
+  "version": 8,
+  "name": "Restaurants",
+  "metadata": {
+    "maputnik:renderer": "mbgljs"
+  },
+  "center": [
+    2.3247,
+    48.8381
+  ],
+  "zoom": 10,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "restaurants": {
+      "type": "vector",
+      "url": "mbtiles://{restaurants}"
+    }
+  },
+  "glyphs": "{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "restaurants",
+      "type": "circle",
+      "source": "restaurants",
+      "source-layer": "BPErestaurant",
+      "paint": {
+        "circle-stroke-color": "rgba(255, 255, 255, 1)",
+        "circle-stroke-width": 1,
+        "circle-color": "rgba(255, 0, 0, 1)"
+      }
+    },
+    {
+      "id": "restaurants-symbol",
+      "type": "symbol",
+      "source": "restaurants",
+      "source-layer": "BPErestaurant",
+      "layout": {
+        "text-field": "{name}",
+        "text-font": [
+          "Open Sans Regular"
+        ],
+        "text-size": 12,
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.5
+        ]
+      },
+      "paint": {
+        "text-halo-color": "rgba(255, 255, 255, 1)",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-color": "rgba(210, 0, 0, 1)"
+      }
+    }
+  ],
+  "id": "restaurants"
+}
