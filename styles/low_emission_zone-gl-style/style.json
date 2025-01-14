@@ -43,7 +43,7 @@
           "#7c323f",
           "goods,hgv @ crit'air>=4",
           "#7c323f",
-          "#fff"
+          "#837d7d"
         ],
         "fill-opacity": 0.3
       }
@@ -77,7 +77,7 @@
           "#7c323f",
           "goods,hgv @ crit'air>=4",
           "#7c323f",
-          "#fff"
+          "#837d7d"
         ],
         "line-opacity": 0.8
       }
@@ -115,7 +115,7 @@
           "#7c323f",
           "goods,hgv @ crit'air>=4",
           "#7c323f",
-          "#fff"
+          "#837d7d"
         ],
         "text-halo-color": "rgba(255, 255, 255, 1)",
         "text-halo-blur": 2,
