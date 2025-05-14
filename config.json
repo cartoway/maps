@@ -25,6 +25,15 @@
         },
         "restaurants": {
             "style": "restaurants-gl-style/style.json"
+        },
+        "etablissements-45.20-garage": {
+            "style": "etablissements-45.20-garage-gl-style/style.json"
+        },
+        "etablissements-55.10-hotel": {
+            "style": "etablissements-55.10-hotel-gl-style/style.json"
+        },
+        "etablissements-56.10-restaurant": {
+            "style": "etablissements-56.10-restaurant-gl-style/style.json"
         }
     },
     "data": {
@@ -45,6 +54,15 @@
         },
         "restaurants": {
             "mbtiles": "restaurants.mbtiles"
+        },
+        "etablissements-45.20": {
+            "mbtiles": "etablissements-45.20.mbtiles"
+        },
+        "etablissements-55.10": {
+            "mbtiles": "etablissements-55.10.mbtiles"
+        },
+        "etablissements-56.10": {
+            "mbtiles": "etablissements-56.10.mbtiles"
         }
     }
 }

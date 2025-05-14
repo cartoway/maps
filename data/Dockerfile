@@ -5,6 +5,7 @@ RUN apt update -y && \
         curl \
         build-essential \
         jq \
+        gdal-bin \
         npm \
         locales \
         ruby

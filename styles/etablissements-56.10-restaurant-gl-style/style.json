@@ -1,0 +1,55 @@
+{
+  "version": 8,
+  "name": "56.10 Restaurant",
+  "metadata": {"maputnik:renderer": "mbgljs"},
+  "center": [2.3247, 48.8381],
+  "zoom": 10,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "points": {
+      "type": "vector",
+      "url": "mbtiles://{etablissements-56.10}"
+    }
+  },
+  "glyphs": "{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "circle",
+      "type": "circle",
+      "source": "points",
+      "source-layer": "etablissements5610",
+      "paint": {
+        "circle-stroke-color": "rgba(255, 255, 255, 1)",
+        "circle-stroke-width": 1,
+        "circle-color": "rgba(255, 0, 0, 1)",
+        "circle-radius": [
+          "max",
+          2,
+          ["/", ["to-number", ["get", "employees"]], 2]
+        ]
+      }
+    },
+    {
+      "id": "label",
+      "type": "symbol",
+      "source": "points",
+      "source-layer": "etablissements5610",
+      "minzoom": 15,
+      "layout": {
+        "text-field": "{siret}  {employees}\n{name}",
+        "text-font": ["Open Sans Regular"],
+        "text-size": {"stops": [[15, 6], [18, 12]]},
+        "text-anchor": "top",
+        "text-offset": [0, 0.5]
+      },
+      "paint": {
+        "text-halo-color": "rgba(255, 255, 255, 1)",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-color": "rgba(210, 0, 0, 1)"
+      }
+    }
+  ],
+  "id": "restaurants"
+}
