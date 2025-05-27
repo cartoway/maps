@@ -5,25 +5,29 @@ set -e
 # 45.20 - Entretien et réparation de véhicules automobiles
 # 55.10 Hôtel
 # 56.10 Restaurant
-NAF_REGEX=",45\.20|,55\.10|,56\.10"
-
-wget https://www.data.gouv.fr/fr/datasets/r/0651fb76-bcf3-4f6a-a38d-bc04fa708576 -O /tmp/StockEtablissement_utf8.zip
-(
-    zcat /tmp/StockEtablissement_utf8.zip | head -n 1;
-    zcat /tmp/StockEtablissement_utf8.zip | grep -E "$NAF_REGEX"
-) | npx csvtojson parse --ignoreEmpty=true | gzip > o.gz
-rm /tmp/StockEtablissement_utf8.zip
+NAF="45.20 55.10 56.10"
+NAF_REGEX="45\.20|55\.10|56\.10"
 
 DATE_FILTER=`date --iso-8601 --date='-2 year'`
 
-for naf in "45.20" "55.10" 56.10; do
-    echo "Processing NAF ${naf}"
+wget https://www.data.gouv.fr/fr/datasets/r/825f4199-cadd-486c-ac46-a65a8ea1a047 -O /tmp/StockUniteLegale.zip
+zcat /tmp/StockUniteLegale.zip | csvgrep -c activitePrincipaleUniteLegale -r "$NAF_REGEX" | csvgrep -c etatAdministratifUniteLegale -m A | csvcut -c siren,activitePrincipaleUniteLegale,dateCreationUniteLegale,prenom1UniteLegale,prenomUsuelUniteLegale,nomUniteLegale,denominationUniteLegale | gzip > /tmp/StockUniteLegale.csv.gz
+rm /tmp/StockUniteLegale.zip
 
-    zcat o.gz | \
-    tail -n+2 | head -n-2 | sed 's/,$//' | \
+wget https://www.data.gouv.fr/fr/datasets/r/0651fb76-bcf3-4f6a-a38d-bc04fa708576 -O /tmp/StockEtablissement_utf8.zip
+zcat /tmp/StockEtablissement_utf8.zip | csvgrep -c activitePrincipaleEtablissement -r "$NAF_REGEX" | csvgrep -c etatAdministratifEtablissement -m A | csvgrep -c caractereEmployeurEtablissement -m O | csvcut -c siren,siret,codeCommuneEtablissement,denominationUsuelleEtablissement,dateCreationEtablissement,trancheEffectifsEtablissement,activitePrincipaleEtablissement,coordonneeLambertAbscisseEtablissement,coordonneeLambertOrdonneeEtablissement | gzip > /tmp/StockEtablissement_utf8.csv.gz
+rm /tmp/StockEtablissement_utf8.zip
+
+csvjoin -c siren /tmp/StockUniteLegale.csv.gz /tmp/StockEtablissement_utf8.csv.gz | gzip > etablissement.csv.gz
+rm /tmp/StockUniteLegale.csv.gz
+rm /tmp/StockEtablissement_utf8.csv.gz
+
+for naf in $NAF; do
+    echo "Processing NAF ${naf}"
+    zcat etablissement.csv.gz | csvjson --stream | \
     jq -c " \
-        select(.etatAdministratifEtablissement = \"O\") | \
-        select(.caractereEmployeurEtablissement = \"O\") | \
+        select(.dateCreationUniteLegale) | \
+        select(.dateCreationUniteLegale < \"${DATE_FILTER}\") | \
         select(.codeCommuneEtablissement < \"97\") | \
         select(.activitePrincipaleEtablissement | match(\"^${naf}.*\")) | \
         select(.coordonneeLambertAbscisseEtablissement) | \
@@ -33,7 +37,11 @@ for naf in "45.20" "55.10" 56.10; do
         select(.dateCreationEtablissement < \"${DATE_FILTER}\") | \
         { \
             type: \"Feature\", \
-            properties:{siret: .siret, name: .denominationUsuelleEtablissement, employees: .trancheEffectifsEtablissement, naf: .activitePrincipaleEtablissement} | with_entries(select(.value != null)), \
+            properties: { \
+                siret: .siret, \
+                name: (.denominationUsuelleEtablissement // .denominationUniteLegale // ([.prenom1UniteLegale, .nomUniteLegale] | join(\" \"))), \
+                employees: .trancheEffectifsEtablissement \
+            } | with_entries(select(.value != null and .value !=\"[ND]\")), \
             geometry: {type: \"Point\", coordinates: [(.coordonneeLambertAbscisseEtablissement|tonumber),(.coordonneeLambertOrdonneeEtablissement|tonumber)]} \
         }
     " | \

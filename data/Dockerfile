@@ -2,8 +2,9 @@ FROM debian:12.4
 
 RUN apt update -y && \
     apt install -y \
-        curl \
         build-essential \
+        csvkit \
+        curl \
         jq \
         gdal-bin \
         npm \
