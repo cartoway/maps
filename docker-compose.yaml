@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   tools:
     profiles:
@@ -23,3 +21,18 @@ services:
     command:
       tileserver-gl -c config.json
     restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8081:8081"
+    environment:
+      - NGINX_RASTER_TILE_HOST=${NGINX_RASTER_TILE_HOST:-}
+      - NGINX_RASTER_REFERER_HOST=${NGINX_RASTER_REFERER_HOST:-}
+    volumes:
+      - ./nginx.conf:/etc/nginx/templates/nginx.conf.template:ro
+      - tile_cache:/var/cache/nginx
+    restart: unless-stopped
+
+volumes:
+  tile_cache:

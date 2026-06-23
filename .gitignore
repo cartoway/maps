@@ -4,3 +4,4 @@ data/*.geojson
 data/*.csv
 data/*.xml
 data/sources
+.env
