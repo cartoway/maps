@@ -8,6 +8,26 @@
         "tileMargin": 10
     },
     "styles": {
+        "klokantech-basic": {
+          "style": "klokantech-basic-gl-style/style-local.json",
+          "serve_rendered": false
+        },
+        "osm-bright": {
+          "style": "osm-bright-gl-style/style-local.json",
+          "serve_rendered": false
+        },
+        "positron": {
+          "style": "positron-gl-style/style-local.json",
+          "serve_rendered": false
+        },
+        "osm-openmaptiles-gl-style": {
+          "style": "osm-openmaptiles-gl-style/style.json",
+          "serve_rendered": false
+        },
+        "satellite-hybrid": {
+          "style": "satellite-hybrid-gl-style/style-local.json",
+          "serve_rendered": false
+        },
         "low_emission_zone": {
             "style": "low_emission_zone-gl-style/style.json"
         },
@@ -37,6 +57,9 @@
         }
     },
     "data": {
+        "v3": {
+            "mbtiles": "planet.mbtiles"
+        },
         "low_emission_zone": {
             "mbtiles": "low_emission_zone.mbtiles"
         },

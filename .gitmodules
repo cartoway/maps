@@ -1,3 +1,18 @@
 [submodule "font-glyphs"]
 	path = font-glyphs
 	url = https://github.com/orangemug/font-glyphs.git
+[submodule "klokantech-basic-gl-style"]
+	path = styles/klokantech-basic-gl-style
+	url = https://github.com/openmaptiles/klokantech-basic-gl-style.git
+[submodule "osm-bright-gl-style"]
+	path = styles/osm-bright-gl-style
+	url = https://github.com/openmaptiles/osm-bright-gl-style.git
+[submodule "maps"]
+	path = maps
+	url = https://github.com/cartoway/maps.git
+[submodule "positron-gl-style"]
+	path = styles/positron-gl-style
+	url = https://github.com/openmaptiles/positron-gl-style.git
+[submodule "satellite-hybrid-gl-style"]
+	path = styles/satellite-hybrid-gl-style
+	url = https://github.com/teritorio/satellite-hybrid-gl-style.git
