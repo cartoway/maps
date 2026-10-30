@@ -5,11 +5,7 @@ sources:
   osm:
     type: osm
     local_path: /data/truck-restrictions-pbf/merge.osm.pbf
-tag_mappings:
-    maxweight: float
-    maxlength: float
-    maxheight: float
-    maxwidth: float
+
 layers:
   - id: restrictions
     features:
@@ -30,6 +26,7 @@ layers:
             - value: 12
               if:
                 highway: [residential, unclassified]
+
         include_when: &include_when
           __all__:
             - highway: [motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, residential, unclassified]
@@ -38,24 +35,42 @@ layers:
               "goods:conditional":
               hgv:
               "hgv:conditional":
+
               maxweight:
               "maxweight:conditional":
+              maxweightrating:
+              "maxweightrating:conditional":
+
               maxlength:
               "maxlength:conditional":
+
               maxheight:
               "maxheight:conditional":
+              "maxheight:physical":
+
+              width:
+              est_width:
               maxwidth:
               "maxwidth:conditional":
+              "maxwidth:physical":
+
         exclude_when: &exclude_when
           __all__:
             - goods: [yes, ""]
             - hgv: [yes, ""]
-            - "${ feature.tags.maxweight == null || feature.tags.maxweight == 'default' || double(feature.tags.getOrDefault('maxweight', '99').replace('t', '').trim()) > 44.0 }"
+            - maxweight: [default, ""]
+            - maxweightrating: [default, ""]
             - maxlength: [default, ""]
             - maxheight: [default, ""]
+            - "maxheight:physical": [default, ""]
+            - width: [default, "", narrow]
+            - est_width: [default, "", narrow]
             - maxwidth: [default, ""]
+            - "maxwidth:physical": [default, ""]
+
         attributes: &attributes
           - key: highway
+
           - key: goods
             exclude_when:
               goods: yes
@@ -64,22 +79,66 @@ layers:
             exclude_when:
               hgv: yes
           - key: "hgv:conditional"
+
           - key: maxweight
-            exclude_when:
-              maxweight: [default, none]
+            value: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxweight', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxweightrating', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) }
+            exclude_when: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxweight', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxweightrating', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) >= 44.0 }
+            type: double
           - key: "maxweight:conditional"
+            value: ${ coalesce(feature.tags.get('maxweight:conditional'), feature.tags.get('maxweightrating:conditional')) }
+
           - key: maxlength
-            exclude_when:
-              maxweight: [default, none]
+            value: >
+              ${ min([
+                double(coalesce(nullif(feature.tags.getOrDefault('maxlength', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) }
+            exclude_when: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxlength', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) >= 99.0 }
+            type: double
           - key: "maxlength:conditional"
+
           - key: maxheight
-            exclude_when:
-              maxweight: [default, none]
+            value: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxheight', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxheight:physical', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) }
+            exclude_when: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxheight', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxheight:physical', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) >= 99.0 }
+            type: double
           - key: "maxheight:conditional"
+
           - key: maxwidth
-            exclude_when:
-              maxweight: [default, none]
+            value: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxwidth', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxwidth:physical', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('width', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('est_width', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) }
+            exclude_when: >
+              ${ min([
+              double(coalesce(nullif(feature.tags.getOrDefault('maxwidth', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('maxwidth:physical', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('width', '').replaceRegex('[^0-9.]', ''), ''), 99.0)),
+              double(coalesce(nullif(feature.tags.getOrDefault('est_width', '').replaceRegex('[^0-9.]', ''), ''), 99.0))
+              ]) >= 99.0 }
+            type: double
           - key: "maxwidth:conditional"
+
   - id: highway
     features:
       - source: osm
@@ -90,6 +149,7 @@ layers:
         attributes: *attributes
     tile_post_process:
       merge_line_strings:
+
 args:
   minzoom: 4
   maxzoom: 14
