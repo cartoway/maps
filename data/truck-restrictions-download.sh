@@ -4,7 +4,7 @@ set -e
 
 mkdir -p truck-restrictions-pbf &&
 cd truck-restrictions-pbf &&
-wget -O \
+wget \
     http://download.geofabrik.de/europe/france-latest.osm.pbf \
     http://download.geofabrik.de/europe/spain-latest.osm.pbf \
     http://download.geofabrik.de/europe/portugal-latest.osm.pbf \
